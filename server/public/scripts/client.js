@@ -5,7 +5,8 @@ $(document).ready(onReady);
 function onReady() {
     console.log('JQ Sourced');
     getOwner();
-    $('#ownerBtn').on('click', ownerPost);
+    $('#ownerBttn').on('click', ownerPost);
+    getPets();
 } // end onReady
 
 function ownerPost(){
@@ -38,7 +39,7 @@ function getOwner(){
 function showOwnerDropdown(owners){
     $('#ownerName').empty();
     for (let owner of owners){
-        let ownerShow = `<option value="" data-id="${owner.id}">${owner.first_name} ${owner.last_name}</option>`
+        let ownerShow = `<option value="">${owner.firstname} ${owner.lastname}</option>`
         $('#ownerName').append(ownerShow);
     }
 }
