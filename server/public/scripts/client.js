@@ -5,7 +5,8 @@ $(document).ready(onReady);
 function onReady() {
     console.log('JQ Sourced');
     getOwner();
-    $('#ownerBtn').on('click', ownerPost);
+    $('#ownerBttn').on('click', ownerPost);
+    getPets();
     $('#petBtn').on('click', petPost);
 } // end onReady
 
@@ -63,6 +64,18 @@ function petPost(){
     })
 }
 
+
+function showPetTable(pets){
+    $('#viewPets').empty();
+    for (let pet of pets){
+         let showPet = `<tr><td>${pet.owner_id}</td><td><input type="text" placeholder="${pet.name}>
+         </td><td><input type="text" placeholder="${pet.breed}></td>
+         <td><input type="text" placeholder="${pet.color}></td><td><button type="button" id="updateBtn">Update</button></td>
+         <td><button type="button" id="deleteBtn">Delete</button></td><td><button type="button" id="checkBtn">Check In</button></td></tr>`
+        $('#viewPets').append(showPet);
+    }
+}
+
 function getPets(){
     $.ajax({
         type: 'GET',
@@ -85,3 +98,4 @@ function clearOwner() {
     $('#ownerFirstName').val('');
     $('#ownerLastName').val('');
 } // end clearOwner
+
