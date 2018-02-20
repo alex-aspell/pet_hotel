@@ -80,10 +80,13 @@ function showPetTable(pets){
     console.log(pets);
     $('#viewPets').empty();
     for (let pet of pets){
-         let showPet = `<tr><td>${pet.first_name} ${pet.last_name}</td><td><input type="text" value="${pet.name}" placeholder="Pet Name">
-         </td><td><input type="text" value="${pet.breed}" placeholder="Pet Breed"></td>
-         <td><input type="text" value="${pet.color}" placeholder="Pet Color"></td><td><button type="button" class="updateBtn" data-id=${pet.pet_id}>Update</button></td>
-         <td><button type="button" class="deleteBtn" data-id=${pet.pet_id}>Delete</button></td><td><button type="button" class="checkBtn" data-id=${pet.pet_id}>Check In</button></td></tr>`
+         let showPet = `<tr><td>${pet.first_name} ${pet.last_name}</td>
+         <td><input type="text" value="${pet.name}" placeholder="Pet Name"></td>
+         <td><input type="text"  value="${pet.breed}" placeholder="Pet Breed"></td>
+         <td><input type="text"  value="${pet.color}" placeholder="Pet Color"></td>
+         <td><button type="button" class="updateBtn" data-color=${pet.color} data-breed=${pet.breed} data-name=${pet.name} data-id=${pet.pet_id}>Update</button></td>
+         <td><button type="button" class="deleteBtn" data-id=${pet.pet_id}>Delete</button></td>
+         <td><button type="button" class="checkBtn" data-id=${pet.pet_id}>Check In</button></td></tr>`
         $('#viewPets').append(showPet);
     }
 }
@@ -119,12 +122,16 @@ function visitToggle() {
 //start update
 function petsUpdate(){
     const id = $(this).data('id');
+    const name = $(this).data('name');
+    const breed = $(this).data('breed');
+    const color = $(this).data('color');
+    console.log(name);
     $.ajax({
         type: 'PUT',
         url: `/hotel/update/${id}`,
-        data: { name: $('.dynamicPetName').val(),
-                breed: $('#petBreed').val(),
-                color: $('#petColor').val()
+        data: { name: name,
+                breed: breed,
+                color: color
         }   
     }).done((response) => {
         console.log('update', response);
