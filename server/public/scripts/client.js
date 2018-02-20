@@ -81,10 +81,10 @@ function showPetTable(pets){
     $('#viewPets').empty();
     for (let pet of pets){
          let showPet = `<tr><td>${pet.first_name} ${pet.last_name}</td>
-         <td><input type="text" value="${pet.name}" placeholder="Pet Name"></td>
-         <td><input type="text"  value="${pet.breed}" placeholder="Pet Breed"></td>
-         <td><input type="text"  value="${pet.color}" placeholder="Pet Color"></td>
-         <td><button type="button" class="updateBtn" data-color=${pet.color} data-breed=${pet.breed} data-name=${pet.name} data-id=${pet.pet_id}>Update</button></td>
+         <td><input type="text" id="name-${pet.pet_id}" value="${pet.name}" placeholder="Pet Name"></td>
+         <td><input type="text"  id="breed-${pet.pet_id}" value="${pet.breed}" placeholder="Pet Breed"></td>
+         <td><input type="text"  id="color-${pet.pet_id}" value="${pet.color}" placeholder="Pet Color"></td>
+         <td><button type="button" class="updateBtn" data-id=${pet.pet_id}>Update</button></td>
          <td><button type="button" class="deleteBtn" data-id=${pet.pet_id}>Delete</button></td>
          <td><button type="button" class="checkBtn" data-id=${pet.pet_id}>Check In</button></td></tr>`
         $('#viewPets').append(showPet);
@@ -122,16 +122,13 @@ function visitToggle() {
 //start update
 function petsUpdate(){
     const id = $(this).data('id');
-    const name = $(this).data('name');
-    const breed = $(this).data('breed');
-    const color = $(this).data('color');
     console.log(name);
     $.ajax({
         type: 'PUT',
         url: `/hotel/update/${id}`,
-        data: { name: name,
-                breed: breed,
-                color: color
+        data: { name: $(`#name-${id}`).val(),
+                breed: $(`#breed-${id}`).val(),
+                color: $(`#color-${id}`).val()
         }   
     }).done((response) => {
         console.log('update', response);
