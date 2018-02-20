@@ -38,7 +38,7 @@ function getOwner(){
 function showOwnerDropdown(owners){
     $('#ownerName').empty();
     for (let owner of owners){
-        let ownerShow = `<option value="">${owner.first_name} ${owner.last_name}</option>`
+        let ownerShow = `<option value="" data-id="${owner.id}">${owner.first_name} ${owner.last_name}</option>`
         $('#ownerName').append(ownerShow);
     }
 }
