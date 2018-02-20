@@ -29,7 +29,16 @@ function getOwner(){
         url: '/hotel/owner'
     }).done((response) => {
         console.log('got owner', response);
+        showOwnerDropdown(response);
     }).fail((response) => {
         console.log('owner get failed');
     })
+}
+
+function showOwnerDropdown(owners){
+    $('#ownerName').empty();
+    for (let owner of owners){
+        let ownerShow = `<option value="">${owner.firstname} ${owner.lastname}</option>`
+        $('#ownerName').append(ownerShow);
+    }
 }
