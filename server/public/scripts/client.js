@@ -19,6 +19,7 @@ function ownerPost(){
         } 
     }).done((response) => {
         console.log('owner added');
+        clearOwner();
         getOwner(); 
     }).fail((response) => {
         console.log('owner not added');
@@ -56,11 +57,13 @@ function petPost(){
         } 
     }).done((response) => {
         console.log('pets added');
-        getOwner(); 
+        clearPets();
+        getPets(); 
     }).fail((response) => {
         console.log('pets added');
     })
 }
+
 
 function showPetTable(pets){
     $('#viewPets').empty();
@@ -72,3 +75,27 @@ function showPetTable(pets){
         $('#viewPets').append(showPet);
     }
 }
+
+function getPets(){
+    $.ajax({
+        type: 'GET',
+        url: '/hotel/pets'
+    }).done((response) => {
+        console.log('got pets', response);
+    }).fail((response) => {
+        console.log('pets get failed');
+    })
+}
+function clearPets() {
+    $('#petName').val('');
+    $('#petBreed').val('');
+    $('#petColor').val('');
+    $('#ownerName').val('');
+} // end clearPets
+
+
+function clearOwner() {
+    $('#ownerFirstName').val('');
+    $('#ownerLastName').val('');
+} // end clearOwner
+
