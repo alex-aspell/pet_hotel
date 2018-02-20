@@ -9,6 +9,7 @@ function onReady() {
     getPets();
     $('#petBtn').on('click', petPost);
     $('#viewPets').on('click', '.checkBtn', visitToggle);
+    $('#viewPets').on('click', '.updateBtn', petsUpdate);
 } // end onReady
 
 function ownerPost(){
@@ -72,7 +73,7 @@ function showPetTable(pets){
     for (let pet of pets){
          let showPet = `<tr><td>${pet.first_name} ${pet.last_name}</td><td><input type="text" value="${pet.name}" placeholder="Pet Name">
          </td><td><input type="text" value="${pet.breed}" placeholder="Pet Breed"></td>
-         <td><input type="text" value="${pet.color}" placeholder="Pet Color"></td><td><button type="button" id="updateBtn">Update</button></td>
+         <td><input type="text" value="${pet.color}" placeholder="Pet Color"></td><td><button type="button" class="updateBtn">Update</button></td>
          <td><button type="button" id="deleteBtn">Delete</button></td><td><button type="button" class="checkBtn">Check In</button></td></tr>`
         $('#viewPets').append(showPet);
     }
@@ -105,3 +106,21 @@ function clearOwner() {
 function visitToggle() {
     $(this).text("Check Out");
 } // end visitToggle
+
+//start update
+function petsUpdate(){
+    const id = $(this).data('id');
+    $.ajax({
+        type: 'PUT',
+        url: `/hotel/update/${id}`,
+        data: { name: $('#petName').val(),
+                breed: $('#petBreed').val(),
+                color: $('#petColor').val()
+        }   
+    }).done((response) => {
+        console.log('update', response);
+        showPetTable(response);
+    }).fail((response) => {
+        console.log('update failed');
+    })
+}//end update
