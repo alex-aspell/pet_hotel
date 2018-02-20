@@ -31,6 +31,19 @@ router.post('/owner', function(request,response){
         })
 })
 
+router.get('/pets', function(request,response){
+    const sqlText = `SELECT * FROM pets;`
+    pool.query(sqlText)
+    .then(function(result){
+        console.log('Pets acquired', result);
+        response.send(result.rows);
+    })
+    .catch(function(error){
+        console.log('Could not get pets');
+        response.sendStatus(500);
+    })
+})
+
 router.post('/pets', function(request,response){
     const new_pet = request.body
     const sqlText = `INSERT INTO pets (name, breed, color, ownerid)
