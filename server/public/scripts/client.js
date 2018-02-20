@@ -57,12 +57,22 @@ function petPost(){
     }).done((response) => {
         console.log('pets added');
         clearPets();
-        getOwner(); 
+        getPets(); 
     }).fail((response) => {
         console.log('pets added');
     })
 }
 
+function getPets(){
+    $.ajax({
+        type: 'GET',
+        url: '/hotel/pets'
+    }).done((response) => {
+        console.log('got pets', response);
+    }).fail((response) => {
+        console.log('pets get failed');
+    })
+}
 function clearPets() {
     $('#petName').val('');
     $('#petBreed').val('');
