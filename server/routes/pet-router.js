@@ -64,9 +64,9 @@ router.put('/update/:id', function(request, response){
     const id = request.params.id;
     const edits = request.body;
     console.log(id, edits);
-    const sqlText = `UPDATE pets SET name=$2, breed=$3, color=$4  WHERE pet_id=$1
-        VALUES($1, $2, $3, $4);`
-     pool.query(sqlText, [id.pet_id, edits.name, edits.breed, edits.color])   
+    const sqlText = `UPDATE pets SET name=$1, breed=$2, color=$3  WHERE pet_id=$4`
+        console.log(sqlText, [edits.name, edits.breed, edits.color, id]) ;
+     pool.query(sqlText, [edits.name, edits.breed, edits.color, id])   
         .then(function(result){
             console.log('Pet updated', result);
             response.sendStatus(200);

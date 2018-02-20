@@ -132,7 +132,7 @@ function petsUpdate(){
         }   
     }).done((response) => {
         console.log('update', response);
-        showPetTable(response);
+        getPets();
     }).fail((response) => {
         console.log('update failed');
     })
