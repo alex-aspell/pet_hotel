@@ -32,7 +32,7 @@ router.post('/owner', function(request,response){
 })
 
 router.get('/pets', function(request,response){
-    const sqlText = `SELECT * FROM pets;`
+    const sqlText = `SELECT owners.first_name, owners.last_name, pets.name, pets.breed, pets.color FROM pets JOIN owners ON pets.owner_id=owners.owner_id;`
     pool.query(sqlText)
     .then(function(result){
         console.log('Pets acquired', result);
