@@ -23,6 +23,7 @@ router.post('/owner', function(request,response){
     pool.query(sqlText,[new_owner.firstname, new_owner.lastname])
         .then(function(result){
             console.log('Owner added', result);
+            response.sendStatus(200);
         })    
         .catch(function(error){
             console.log('Could not add owner',error);
