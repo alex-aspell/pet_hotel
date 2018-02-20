@@ -1,7 +1,7 @@
 {
   "name": "pet_hotel",
   "version": "2.0.0",
-  "description": "Pet Hotal",
+  "description": "Pet Hotel",
   "main": "server.js",
   "scripts": {
     "start": "node server/server.js"

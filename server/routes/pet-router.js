@@ -45,10 +45,10 @@ router.get('/pets', function(request,response){
 })
 
 router.post('/pets', function(request,response){
-    const new_pet = request.body
-    const sqlText = `INSERT INTO pets (name, breed, color, ownerid)
+    const new_pet = request.body;
+    const sqlText = `INSERT INTO pets (name, breed, color, owner_id)
         VALUES($1, $2, $3, $4);`
-    pool.query(sqlText[new_pet.name, new_pet.breed, new_pet.color, new_pet.ownerid])
+    pool.query(sqlText,[new_pet.name, new_pet.breed, new_pet.color, new_pet.owner_id])
         .then(function(result){
             console.log('Pet added', result);
             response.sendStatus(200);
