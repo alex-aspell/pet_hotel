@@ -5,7 +5,7 @@ $(document).ready(onReady);
 function onReady() {
     console.log('JQ Sourced');
     getOwner();
-    $('#ownerBttn').on('click', ownerPost);
+    $('#ownerBtn').on('click', ownerPost);
     getPets();
     $('#petBtn').on('click', petPost);
 } // end onReady
@@ -68,9 +68,9 @@ function petPost(){
 function showPetTable(pets){
     $('#viewPets').empty();
     for (let pet of pets){
-         let showPet = `<tr><td>${pet.owner_id}</td><td><input type="text" placeholder="${pet.name}>
-         </td><td><input type="text" placeholder="${pet.breed}></td>
-         <td><input type="text" placeholder="${pet.color}></td><td><button type="button" id="updateBtn">Update</button></td>
+         let showPet = `<tr><td>${pet.owner_id}</td><td><input type="text" value="${pet.name}" placeholder="Pet Name">
+         </td><td><input type="text" value="${pet.breed}" placeholder="Pet Breed"></td>
+         <td><input type="text" value="${pet.color}" placeholder="Pet Color"></td><td><button type="button" id="updateBtn">Update</button></td>
          <td><button type="button" id="deleteBtn">Delete</button></td><td><button type="button" id="checkBtn">Check In</button></td></tr>`
         $('#viewPets').append(showPet);
     }
@@ -82,6 +82,7 @@ function getPets(){
         url: '/hotel/pets'
     }).done((response) => {
         console.log('got pets', response);
+        showPetTable(response);
     }).fail((response) => {
         console.log('pets get failed');
     })
