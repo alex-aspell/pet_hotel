@@ -9,6 +9,12 @@ function onReady() {
     getPets();
     $('#petBtn').on('click', petPost);
     $('#viewPets').on('click', '.checkBtn', visitToggle);
+
+    $('#viewPets').on('click', '#deleteBtn', function() {
+        const petId = $(this).data('id');
+        deletePet(petId);
+      }) // end .deleteBtn click
+      
 } // end onReady
 
 function ownerPost(){
@@ -73,7 +79,7 @@ function showPetTable(pets){
          let showPet = `<tr><td>${pet.first_name} ${pet.last_name}</td><td><input type="text" value="${pet.name}" placeholder="Pet Name">
          </td><td><input type="text" value="${pet.breed}" placeholder="Pet Breed"></td>
          <td><input type="text" value="${pet.color}" placeholder="Pet Color"></td><td><button type="button" id="updateBtn">Update</button></td>
-         <td><button type="button" id="deleteBtn">Delete</button></td><td><button type="button" class="checkBtn">Check In</button></td></tr>`
+         <td><button type="button" id="deleteBtn" data-id=${pet.pet_id}>Delete</button></td><td><button type="button" class="checkBtn">Check In</button></td></tr>`
         $('#viewPets').append(showPet);
     }
 }
@@ -105,3 +111,17 @@ function clearOwner() {
 function visitToggle() {
     $(this).text("Check Out");
 } // end visitToggle
+
+function deletePet(id) {
+    $.ajax({
+        type: 'DELETE',
+        url: `/hotel/pets/${id}`,
+      }) // end AJAX
+      .done((response) => {
+        console.log('pet deleted');
+        getPets();
+      }) // end done
+      .fail((error) => {
+        console.log('error', error);
+      }) // end fail
+} // end deletePet

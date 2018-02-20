@@ -32,7 +32,7 @@ router.post('/owner', function(request,response){
 })
 
 router.get('/pets', function(request,response){
-    const sqlText = `SELECT owners.first_name, owners.last_name, pets.name, pets.breed, pets.color FROM pets JOIN owners ON pets.owner_id=owners.owner_id;`
+    const sqlText = `SELECT owners.first_name, owners.last_name, pets.pet_id, pets.name, pets.breed, pets.color FROM pets JOIN owners ON pets.owner_id=owners.owner_id;`
     pool.query(sqlText)
     .then(function(result){
         console.log('Pets acquired', result);
@@ -58,5 +58,18 @@ router.post('/pets', function(request,response){
             response.sendStatus(500);
         })
 })
+
+router.delete('/pets/:id', (request, response) => {
+    const id =  request.params.id;
+    const sqlText = `DELETE FROM pets WHERE pets_id=$1`;
+    pool.query(sqlText, [id]).then((result) => {
+        console.log('Deleted Pet', id);
+        response.sendStatus(200);
+    }) // end success
+    .catch((error) => {
+        console.log('error in router.delete', error);
+        response.sendStatus(500);
+    })
+  }) // end delete
 
 module.exports = router;
