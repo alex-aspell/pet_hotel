@@ -18,6 +18,7 @@ function ownerPost(){
         } 
     }).done((response) => {
         console.log('owner added');
+        clearOwner();
         getOwner(); 
     }).fail((response) => {
         console.log('owner not added');
@@ -55,8 +56,22 @@ function petPost(){
         } 
     }).done((response) => {
         console.log('pets added');
+        clearPets();
         getOwner(); 
     }).fail((response) => {
         console.log('pets added');
     })
 }
+
+function clearPets() {
+    $('#petName').val('');
+    $('#petBreed').val('');
+    $('#petColor').val('');
+    $('#ownerName').val('');
+} // end clearPets
+
+
+function clearOwner() {
+    $('#ownerFirstName').val('');
+    $('#ownerLastName').val('');
+} // end clearOwner
