@@ -61,7 +61,12 @@ router.post('/pets', function(request,response){
 
 router.delete('/pets/:id', (request, response) => {
     const id =  request.params.id;
-    const sqlText = `DELETE FROM pets WHERE pets_id=$1`;
+  
+
+    
+    const sqlText = `DELETE FROM pets WHERE pet_id=$1`;
+    console.log(sqlText, [id]);
+
     pool.query(sqlText, [id]).then((result) => {
         console.log('Deleted Pet', id);
         response.sendStatus(200);
