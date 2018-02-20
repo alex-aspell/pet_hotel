@@ -14,7 +14,7 @@ SELECT * FROM owners;
 BEGIN;
 CREATE TABLE pets (
 	id serial primary key not null,
-	pets_id INT,
+	pet_id INT,
 	name varchar(25),
 	breed varchar(50),
 	color varchar(25),
@@ -38,35 +38,26 @@ SELECT * FROM visits;
 
 ---------INSERT INTO---------
 --------owners--------
---BEGIN;
---INSERT INTO owners (first_name, last_name) VALUES ('','',);
---INSERT INTO owners (first_name, last_name) VALUES ('','',);
---INSERT INTO owners (first_name, last_name) VALUES ('','',);
---INSERT INTO owners (first_name, last_name) VALUES ('','',);
---INSERT INTO owners (first_name, last_name) VALUES ('','',);
-----ROLLBACK
---COMMIT;
---SELECT * FROM owners;
---------pets--------
---BEGIN;
---INSERT INTO pets (name, breed) VALUES ('','','');
---INSERT INTO pets (name, breed) VALUES ('','','');
---INSERT INTO pets (name, breed) VALUES ('','','');
-----ROLLBACK
---COMMIT;
---SELECT * FROM pets;
---------visits--------
---BEGIN;
---INSERT INTO  () VALUES ();
---INSERT INTO  () VALUES ();
---INSERT INTO  () VALUES ();
---INSERT INTO  () VALUES ();
---INSERT INTO  () VALUES ();
---INSERT INTO  () VALUES ();
---INSERT INTO  () VALUES ();
-----ROLLBACK
---COMMIT;
---SELECT * FROM visits;
+BEGIN;
+INSERT INTO owners (first_name, last_name, owner_id) VALUES ('The','Dude',1);
+INSERT INTO owners (first_name, last_name, owner_id) VALUES ('Alex','McAlexson',2);
+--ROLLBACK
+COMMIT;
+SELECT * FROM owners;
+------pets--------
+BEGIN;
+INSERT INTO pets (name, breed, color, pet_id) VALUES ('Pupster','Boxer','Typical',1);
+INSERT INTO pets (name, breed, color, pet_id) VALUES ('Casper','Cockalier','Blue Merle', 2);
+--ROLLBACK
+COMMIT;
+SELECT * FROM pets;
+------visits--------
+BEGIN;
+INSERT INTO visits (check_in, check_out, pet_id, visit_id) VALUES ('01/01/2018','01/15/2018', 1, 1);
+INSERT INTO visits (check_in, check_out, pet_id, visit_id) VALUES ('01/01/2018','01/15/2018', 2, 2);
+--ROLLBACK
+COMMIT;
+SELECT * FROM visits;
 
 
 
