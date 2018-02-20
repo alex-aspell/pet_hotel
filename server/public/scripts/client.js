@@ -13,7 +13,7 @@ function onReady() {
     $('#viewPets').on('click', '.updateBtn', petsUpdate);
 
 
-    $('#viewPets').on('click', '#deleteBtn', function() {
+    $('#viewPets').on('click', '.deleteBtn', function() {
         const petId = $(this).data('id');
         deletePet(petId);
       }) // end .deleteBtn click
@@ -82,10 +82,8 @@ function showPetTable(pets){
     for (let pet of pets){
          let showPet = `<tr><td>${pet.first_name} ${pet.last_name}</td><td><input type="text" value="${pet.name}" placeholder="Pet Name">
          </td><td><input type="text" value="${pet.breed}" placeholder="Pet Breed"></td>
-         <td><input type="text" value="${pet.color}" placeholder="Pet Color"></td><td><button type="button" class="updateBtn">Update</button></td>
-         <td><button type="button" id="deleteBtn">Delete</button></td><td><button type="button" class="checkBtn">Check In</button></td></tr>`
-         <td><input type="text" value="${pet.color}" placeholder="Pet Color"></td><td><button type="button" id="updateBtn">Update</button></td>
-         <td><button type="button" id="deleteBtn" data-id=${pet.pet_id}>Delete</button></td><td><button type="button" class="checkBtn">Check In</button></td></tr>`
+         <td><input type="text" value="${pet.color}" placeholder="Pet Color"></td><td><button type="button" class="updateBtn" data-id=${pet.pet_id}>Update</button></td>
+         <td><button type="button" class="deleteBtn" data-id=${pet.pet_id}>Delete</button></td><td><button type="button" class="checkBtn" data-id=${pet.pet_id}>Check In</button></td></tr>`
         $('#viewPets').append(showPet);
     }
 }
@@ -105,7 +103,7 @@ function clearPets() {
     $('#petName').val('');
     $('#petBreed').val('');
     $('#petColor').val('');
-    $('#ownerName').val('');
+    $('#ownerName').val();
 } // end clearPets
 
 
@@ -124,7 +122,7 @@ function petsUpdate(){
     $.ajax({
         type: 'PUT',
         url: `/hotel/update/${id}`,
-        data: { name: $('#petName').val(),
+        data: { name: $('.dynamicPetName').val(),
                 breed: $('#petBreed').val(),
                 color: $('#petColor').val()
         }   

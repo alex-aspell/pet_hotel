@@ -46,9 +46,10 @@ router.get('/pets', function(request,response){
 
 router.post('/pets', function(request,response){
     const new_pet = request.body;
+    console.log(new_pet);
     const sqlText = `INSERT INTO pets (name, breed, color, owner_id)
         VALUES($1, $2, $3, $4);`
-    pool.query(sqlText[new_pet.name, new_pet.breed, new_pet.color, new_pet.owner_id])
+    pool.query(sqlText,[new_pet.name, new_pet.breed, new_pet.color, new_pet.owner_id])
         .then(function(result){
             console.log('Pet added', result);
             response.sendStatus(200);
@@ -62,9 +63,10 @@ router.post('/pets', function(request,response){
 router.put('/update/:id', function(request, response){
     const id = request.params.id;
     const edits = request.body;
-    const sqlText = `UPDATE pets SET name=$2, breed=$3, color=$4  WHERE owner_id=$1
+    console.log(id, edits);
+    const sqlText = `UPDATE pets SET name=$2, breed=$3, color=$4  WHERE pet_id=$1
         VALUES($1, $2, $3, $4);`
-     pool.query(sqlText, [edits.owner_id, edits.name, edits.breed, edits.color])   
+     pool.query(sqlText, [id.pet_id, edits.name, edits.breed, edits.color])   
         .then(function(result){
             console.log('Pet updated', result);
             response.sendStatus(200);
@@ -78,10 +80,7 @@ router.put('/update/:id', function(request, response){
 router.delete('/pets/:id', (request, response) => {
     const id =  request.params.id;
   
-
-    
     const sqlText = `DELETE FROM pets WHERE pet_id=$1`;
-    console.log(sqlText, [id]);
 
     pool.query(sqlText, [id]).then((result) => {
         console.log('Deleted Pet', id);
