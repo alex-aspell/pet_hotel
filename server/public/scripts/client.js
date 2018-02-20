@@ -68,7 +68,7 @@ function petPost(){
 function showPetTable(pets){
     $('#viewPets').empty();
     for (let pet of pets){
-         let showPet = `<tr><td>${pet.owner_id}</td><td><input type="text" value="${pet.name}" placeholder="Pet Name">
+         let showPet = `<tr><td>${pet.first_name} ${pet.last_name}</td><td><input type="text" value="${pet.name}" placeholder="Pet Name">
          </td><td><input type="text" value="${pet.breed}" placeholder="Pet Breed"></td>
          <td><input type="text" value="${pet.color}" placeholder="Pet Color"></td><td><button type="button" id="updateBtn">Update</button></td>
          <td><button type="button" id="deleteBtn">Delete</button></td><td><button type="button" id="checkBtn">Check In</button></td></tr>`
