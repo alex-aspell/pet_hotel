@@ -2,8 +2,7 @@
 --------Owners--------
 BEGIN;
 CREATE TABLE owners (
-	id serial primary key not null,
-	owner_id INT,
+	owner_id serial primary key not null,
 	first_name varchar(25),
 	last_name varchar(25)
 	);
@@ -13,8 +12,7 @@ SELECT * FROM owners;
 --------pets--------	
 BEGIN;
 CREATE TABLE pets (
-	id serial primary key not null,
-	pet_id INT,
+	pet_id serial primary key not null,
 	name varchar(25),
 	breed varchar(50),
 	color varchar(25),
@@ -26,11 +24,11 @@ SELECT * FROM pets;
 --------visits--------
 BEGIN;
 CREATE TABLE visits (
-	id serial primary key not null,
-	visit_id INT,
+	owner_id INT REFERENCES owners ON DELETE RESTRICT,
+	pet_id INT REFERENCES pets ON DELETE CASCADE,
 	check_in date,
 	check_out date,
-	pet_id INT
+	PRIMARY KEY (owner_id, pet_id)
 	);
 --ROLLBACK;
 COMMIT;
@@ -39,25 +37,22 @@ SELECT * FROM visits;
 ---------INSERT INTO---------
 --------owners--------
 BEGIN;
-INSERT INTO owners (first_name, last_name, owner_id) VALUES ('The','Dude',1);
-INSERT INTO owners (first_name, last_name, owner_id) VALUES ('Alex','McAlexson',2);
+INSERT INTO owners (first_name, last_name) VALUES ('The','Dude');
+INSERT INTO owners (first_name, last_name) VALUES ('Alex','McAlexson');
 --ROLLBACK
 COMMIT;
 SELECT * FROM owners;
 ------pets--------
 BEGIN;
-INSERT INTO pets (name, breed, color, pet_id) VALUES ('Pupster','Boxer','Typical',1);
-INSERT INTO pets (name, breed, color, pet_id) VALUES ('Casper','Cockalier','Blue Merle', 2);
+INSERT INTO pets (name, breed, color) VALUES ('Pupster','Boxer','Typical');
+INSERT INTO pets (name, breed, color) VALUES ('Casper','Cockalier','Blue Merle');
 --ROLLBACK
 COMMIT;
 SELECT * FROM pets;
 ------visits--------
 BEGIN;
-INSERT INTO visits (check_in, check_out, pet_id, visit_id) VALUES ('01/01/2018','01/15/2018', 1, 1);
-INSERT INTO visits (check_in, check_out, pet_id, visit_id) VALUES ('01/01/2018','01/15/2018', 2, 2);
+INSERT INTO visits (check_in, check_out, owner_id, pet_id) VALUES ('01/01/2018','01/15/2018',1,1);
+INSERT INTO visits (check_in, check_out, owner_id, pet_id) VALUES ('01/01/2018','01/15/2018',2,2);
 --ROLLBACK
 COMMIT;
 SELECT * FROM visits;
-
-
-
