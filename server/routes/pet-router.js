@@ -61,6 +61,7 @@ router.post('/pets', function(request,response){
 })
 
 router.put('/update/:id', function(request, response){
+    const id = request.params.id;
     const edits = request.body;
     const sqlText = `UPDATE pets SET name=$2, breed=$3, color=$4  WHERE owner_id=$1
         VALUES($1, $2, $3, $4);`
