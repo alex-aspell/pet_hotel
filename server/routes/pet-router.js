@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router;
+const router = express.Router();
 const pool = require('../modules/pool');
 const bodyParser = require('body-parser');
 
@@ -23,9 +23,25 @@ router.post('/owner', function(request,response){
     pool.query(sqlText,[new_owner.firstname, new_owner.lastname])
         .then(function(result){
             console.log('Owner added', result);
+            response.sendStatus(200);
         })    
         .catch(function(error){
             console.log('Could not add owner',error);
+            response.sendStatus(500);
+        })
+})
+
+router.post('/pets', function(request,response){
+    const new_pet = request.body
+    const sqlText = `INSERT INTO pets (name, breed, color, ownerid)
+        VALUES($1, $2, $3, $4);`
+    pool.query(sqlText[new_pet.name, new_pet.breed, new_pet.color, new_pet.ownerid])
+        .then(function(result){
+            console.log('Pet added', result);
+            response.sendStatus(200);
+        })
+        .catch(function(error){
+            console.log('Could not add pet', error);
             response.sendStatus(500);
         })
 })
