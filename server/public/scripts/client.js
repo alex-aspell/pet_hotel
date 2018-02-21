@@ -9,7 +9,16 @@ function onReady() {
     getPets();
     $('#petBtn').on('click', petPost);
 
-    $('#viewPets').on('click', '.checkBtn', visitIn);
+    $('#viewPets').on('click', '.checkBtn', function() {
+        const id = $(this).data('id');
+        if ($(`#checkBtn-${id}`).val() === 'in') {
+            visitIn(id);
+            $(this).text("Check Out").val('out');
+        } else if (($(`#checkBtn-${id}`).val() === 'out')) {
+            console.log('OUT');
+        } 
+    }) 
+
 
     $('#viewPets').on('click', '.updateBtn', petsUpdate);
 
@@ -87,7 +96,7 @@ function showPetTable(pets){
          <td><input type="text"  id="color-${pet.pet_id}" value="${pet.color}" placeholder="Pet Color"></td>
          <td><button type="button" class="updateBtn" data-id=${pet.pet_id}>Update</button></td>
          <td><button type="button" class="deleteBtn" data-id=${pet.pet_id}>Delete</button></td>
-         <td><button type="button" class="checkBtn" data-id=${pet.pet_id}>Check In</button></td></tr>`
+         <td><button type="button" id="checkBtn-${pet.pet_id}" class="checkBtn" value="in" data-id=${pet.pet_id}>Check In</button></td></tr>`
         $('#viewPets').append(showPet);
     }
 }
@@ -116,9 +125,8 @@ function clearOwner() {
     $('#ownerLastName').val('');
 } // end clearOwner
 
-function visitIn() {
-    const id = $(this).data('id');
-    $(this).text("Check Out");
+function visitIn(id) {
+    console.log('In Visit In');
     var nowIn = new Date().toUTCString();
     $.ajax({
         type: 'POST',
