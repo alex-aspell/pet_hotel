@@ -16,7 +16,7 @@ function onReady() {
             $(this).text("Check Out").val('out');
         } else if (($(`#checkBtn-${id}`).val() === 'out')) {
             visitOut(id);
-            $(this).text("Check In").val('in');
+            $(`#checkBtn-${id}`).text("Check In").val('in');
         } 
     }) 
 
@@ -186,7 +186,6 @@ function visitOut(id) {
         }   
     }).done((response) => {
         console.log('Checked Out', response);
-        getPets();
     }).fail((response) => {
         console.log('Check Out failed');
     })
