@@ -28,7 +28,6 @@ function onReady() {
         const petId = $(this).data('id');
         deletePet(petId);
       }) // end .deleteBtn click
-      
 
 } // end onReady
 
