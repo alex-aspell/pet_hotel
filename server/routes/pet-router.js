@@ -93,4 +93,42 @@ router.delete('/pets/:id', (request, response) => {
   }) // end delete
 
 
+  router.post('/checkin/:id', function(request,response){
+    const new_checkin = request.body;
+    console.log(new_checkin);
+
+   const sqlText = `INSERT INTO visits (pet_id, check_in)
+        VALUES($1, $2);`
+    pool.query(sqlText,[new_checkin.petid, new_checkin.checkin])
+        .then(function(result){
+            console.log('Check-In added', result);
+            response.sendStatus(200);
+        })
+        .catch(function(error){
+            console.log('Could not Check-In', error);
+            response.sendStatus(500);
+        }) 
+})
+
+
+
+router.put('/checkout/:id', function(request, response){
+    const id = request.params.id;
+    const checkOut = request.body;
+
+    console.log(id, checkOut);
+
+    const sqlText = `UPDATE visits SET check_out=$1 WHERE pet_id=$2`
+        console.log(sqlText, [checkOut.checkout, id]) ;
+     pool.query(sqlText, [checkOut.checkout, id])   
+        .then(function(result){
+            console.log('check-out updated', result);
+            response.sendStatus(200);
+        })
+        .catch(function(error){
+            console.log('check-out failed', error);
+            response.sendStatus(500);
+        })
+})
+
 module.exports = router;

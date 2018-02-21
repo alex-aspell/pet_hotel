@@ -24,11 +24,10 @@ SELECT * FROM pets;
 --------visits--------
 BEGIN;
 CREATE TABLE visits (
-	owner_id INT REFERENCES owners ON DELETE RESTRICT,
+    visit_id serial primary key not null,
 	pet_id INT REFERENCES pets ON DELETE CASCADE,
-	check_in date,
-	check_out date,
-	PRIMARY KEY (owner_id, pet_id)
+	check_in datetime,
+	check_out datetime
 	);
 --ROLLBACK;
 COMMIT;
