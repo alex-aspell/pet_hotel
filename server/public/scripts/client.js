@@ -8,7 +8,8 @@ function onReady() {
     $('#ownerBtn').on('click', ownerPost);
     getPets();
     $('#petBtn').on('click', petPost);
-    $('#viewPets').on('click', '.checkBtn', visitToggle);
+
+    $('#viewPets').on('click', '.checkBtn', visitIn);
 
     $('#viewPets').on('click', '.updateBtn', petsUpdate);
 
@@ -115,8 +116,21 @@ function clearOwner() {
     $('#ownerLastName').val('');
 } // end clearOwner
 
-function visitToggle() {
+function visitIn() {
+    const id = $(this).data('id');
     $(this).text("Check Out");
+    var nowIn = new Date().toUTCString();
+    $.ajax({
+        type: 'POST',
+        url:`/hotel/checkin/${id}`,
+        data: { petid: id,
+                checkin: nowIn
+        } 
+    }).done((response) => {
+        console.log('checkin added');
+    }).fail((response) => {
+        console.log('checkin failed');
+    })
 } // end visitToggle
 
 //start update

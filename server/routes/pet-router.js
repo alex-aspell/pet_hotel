@@ -93,4 +93,22 @@ router.delete('/pets/:id', (request, response) => {
   }) // end delete
 
 
+  router.post('/checkin/:id', function(request,response){
+    const new_checkin = request.body;
+    console.log(new_checkin);
+
+   const sqlText = `INSERT INTO visits (pet_id, check_in)
+        VALUES($1, $2);`
+    pool.query(sqlText,[new_checkin.petid, new_checkin.checkin])
+        .then(function(result){
+            console.log('Check-In added', result);
+            response.sendStatus(200);
+        })
+        .catch(function(error){
+            console.log('Could not Check-In', error);
+            response.sendStatus(500);
+        }) 
+})
+
+
 module.exports = router;
