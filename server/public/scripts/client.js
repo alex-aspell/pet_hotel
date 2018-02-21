@@ -15,7 +15,8 @@ function onReady() {
             visitIn(id);
             $(this).text("Check Out").val('out');
         } else if (($(`#checkBtn-${id}`).val() === 'out')) {
-            console.log('OUT');
+            visitOut(id);
+            $(this).text("Check In").val('in');
         } 
     }) 
 
@@ -174,3 +175,19 @@ function deletePet(id) {
       }) // end fail
 } // end deletePet
 
+
+function visitOut(id) {
+    console.log('In Visit Out');
+    var newOut = new Date().toUTCString();
+    $.ajax({
+        type: 'PUT',
+        url: `/hotel/checkout/${id}`,
+        data: { checkout: newOut
+        }   
+    }).done((response) => {
+        console.log('Checked Out', response);
+        getPets();
+    }).fail((response) => {
+        console.log('Check Out failed');
+    })
+} // end visitOut

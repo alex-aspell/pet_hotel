@@ -111,4 +111,24 @@ router.delete('/pets/:id', (request, response) => {
 })
 
 
+
+router.put('/checkout/:id', function(request, response){
+    const id = request.params.id;
+    const checkOut = request.body;
+
+    console.log(id, checkOut);
+
+    const sqlText = `UPDATE visits SET check_out=$1 WHERE pet_id=$2`
+        console.log(sqlText, [checkOut.checkout, id]) ;
+     pool.query(sqlText, [checkOut.checkout, id])   
+        .then(function(result){
+            console.log('check-out updated', result);
+            response.sendStatus(200);
+        })
+        .catch(function(error){
+            console.log('check-out failed', error);
+            response.sendStatus(500);
+        })
+})
+
 module.exports = router;
