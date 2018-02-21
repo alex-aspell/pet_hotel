@@ -135,11 +135,11 @@ router.get('/visits', function(request,response){
     const sqlText = `SELECT pets.name, visits.check_in, visits.check_out FROM visits JOIN pets ON visits.pet_id=pets.pet_id ORDER BY visits.check_out DESC;`
     pool.query(sqlText)
         .then(function(result){
-            console.log('Pets acquired', result);
+            console.log('Visits acquired', result);
             response.send(result.rows);
         })
         .catch(function(error){
-            console.log('Could not get pets');
+            console.log('Visits not get pets');
             response.sendStatus(500);
         })
 })

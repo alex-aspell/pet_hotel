@@ -89,7 +89,7 @@ function petPost(){
 function showPetTable(pets){
     console.log(pets);
     $('#viewPets').empty();
-    for (let pet of pets){
+    for (let pet of pets) {
          let showPet = `<tr><td>${pet.first_name} ${pet.last_name}</td>
          <td><input type="text" id="name-${pet.pet_id}" value="${pet.name}" placeholder="Pet Name"></td>
          <td><input type="text"  id="breed-${pet.pet_id}" value="${pet.breed}" placeholder="Pet Breed"></td>
@@ -97,7 +97,7 @@ function showPetTable(pets){
          <td><button type="button" class="updateBtn" data-id=${pet.pet_id}>Update</button></td>
          <td><button type="button" class="deleteBtn" data-id=${pet.pet_id}>Delete</button></td>
          <td><button type="button" id="checkBtn-${pet.pet_id}" class="checkBtn" value="in" data-id=${pet.pet_id}>Check In</button></td></tr>`
-        $('#viewPets').append(showPet);
+         $('#viewPets').append(showPet);
     }
 }
 
@@ -112,6 +112,7 @@ function getPets(){
         console.log('pets get failed');
     })
 }
+
 function clearPets() {
     $('#petName').val('');
     $('#petBreed').val('');
